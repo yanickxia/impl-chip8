@@ -1,1 +1,0 @@
-# Implementing CHIP-8 Emulator In Rust

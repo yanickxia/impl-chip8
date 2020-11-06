@@ -7,3 +7,12 @@ edition = "2018"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+lazy_static = "1.4.0"
+rand  = "0.7.3"
+device_query = "0.2.6"
+log = "0.4.8"
+env_logger = "0.7.1"
+time = "0.2.7"
+getopts = "0.2.21"
+rand = "0.7.3"
+sdl2 = "0.33.0"
