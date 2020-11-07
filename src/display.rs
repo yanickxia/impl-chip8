@@ -1,4 +1,6 @@
+/// 显示宽度 64 像素
 pub const DISPLAY_WIDTH: usize = 64;
+/// 显示高度 32 像素
 pub const DISPLAY_HEIGHT: usize = 32;
 
 #[derive(Clone)]
@@ -19,6 +21,7 @@ impl Display {
         self.gfx = [[0u8; DISPLAY_WIDTH]; DISPLAY_HEIGHT];
         self.dirty = true;
     }
+
     pub fn draw(&mut self, xpos: usize, ypos: usize, sprite: &[u8]) -> bool {
         let mut collision = false;
         let h = sprite.len();

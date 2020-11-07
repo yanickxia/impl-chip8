@@ -3,13 +3,19 @@ name = "impl-chip8"
 version = "0.1.0"
 authors = ["yanick <yanick.xia@gmail.com>"]
 edition = "2018"
+autobins = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[lib]
+name = "chip8vm"
+path = "src/lib.rs"
+
+[[bin]]
+name = "chip8ui"
+path = "src/bin/main.rs"
+
 [dependencies]
-lazy_static = "1.4.0"
-rand  = "0.7.3"
-device_query = "0.2.6"
 log = "0.4.8"
 env_logger = "0.7.1"
 time = "0.2.7"

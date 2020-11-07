@@ -4,23 +4,7 @@ use rand::Rng;
 use crate::keypad::Keypad;
 use std::io;
 
-
-lazy_static! {
-    pub static ref CPU: Mutex<Cpu> = Mutex::new(Cpu {
-        i: 0,
-        pc: 0,
-        memory: [0; 4096],
-        v: [0; 16],
-        display: Display::new(),
-        stack: [0; 16],
-        sp: 0,
-        delay_timer: 0,
-        sound_timer: 0,
-        keypad: Keypad::new()
-    });
-}
-
-pub struct Cpu {
+pub struct Vm {
     // register index
     pub i: u16,
 
@@ -67,7 +51,7 @@ pub fn draw() {
 }
 
 pub fn load_rom(rom: &[u8]) {
-    let cpu: &mut Cpu = &mut *(CPU.lock().unwrap());
+    let cpu: &mut Vm = &mut *(CPU.lock().unwrap());
     for i in 0..rom.len() {
         cpu.memory[0x200 + i] = rom[i]
     }
@@ -109,7 +93,7 @@ macro_rules! arg_n {
     };
 }
 
-impl Cpu {
+impl Vm {
     pub fn reset(&mut self) {
         self.i = 0;
         self.pc = 0x200;
