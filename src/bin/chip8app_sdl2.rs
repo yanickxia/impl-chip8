@@ -1,21 +1,21 @@
 use std::sync::mpsc::{Receiver, Sender};
 
-use self::sdl2::event::Event;
-use self::sdl2::keyboard::Keycode;
-use self::sdl2::pixels::{Color, PixelFormatEnum};
-use self::sdl2::rect::Rect;
-use self::sdl2::render::{Texture, TextureCreator, WindowCanvas};
-use self::sdl2::video::WindowContext;
-use sdl2;
+use sdl2::event::Event;
+use sdl2::keyboard::Keycode;
+use sdl2::pixels::{Color, PixelFormatEnum};
+use sdl2::rect::Rect;
+use sdl2::render::{Texture, TextureCreator, WindowCanvas};
+use sdl2::video::WindowContext;
 
-use self::chip8vm::display::{Display, DISPLAY_HEIGHT, DISPLAY_WIDTH};
-use self::chip8vm::keypad::Keystate::{Pressed, Released};
 use crate::chip8app::Chip8UICommand::*;
 use crate::chip8app::Chip8VMCommand::*;
 use crate::chip8app::{
     get_display_size, Chip8Config, Chip8EmulatorBackend, Chip8UICommand, Chip8VMCommand,
 };
 use chip8vm;
+use chip8vm::display::{Display, DISPLAY_WIDTH, DISPLAY_HEIGHT};
+use chip8vm::keypad::Keystate::{Pressed, Released};
+
 
 // todo : make this a backend-agnostic option
 const COLOR_PIXEL_OFF: Color = Color {
@@ -71,7 +71,7 @@ impl Chip8BackendSDL2 {
                 }
             }
         })
-        .unwrap();
+            .unwrap();
         texture
     }
 }

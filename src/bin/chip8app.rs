@@ -6,9 +6,9 @@ use std::thread;
 use time::{Duration, Instant};
 
 use crate::input;
-use chip8vm;
-use chip8vm::display::{Display, DISPLAY_HEIGHT, DISPLAY_WIDTH};
 use chip8vm::keypad::Keystate;
+use chip8vm::display::{Display, DISPLAY_WIDTH, DISPLAY_HEIGHT};
+use chip8vm::vm::Vm;
 
 /// Structure facilitating the configuration of a 'Chip8Application'.
 /// The configuration functions (e.g. 'w_title') work with moved 'self' values
@@ -48,7 +48,7 @@ impl Chip8Config {
             window_width: 64,
             window_height: 32,
             keypad_binding: input::KeyboardBinding::QWERTY,
-            vm_cpu_clock: CPU_CLOCK,
+            vm_cpu_clock: 600,
         }
     }
 
@@ -164,7 +164,7 @@ impl<'a> Chip8Emulator<'a> {
 /// Emulation loop simulating the CHIP 8 virtual machine and communicating back
 /// to the emulator's backend implementation by feeding Chip8UI
 pub fn exec_vm(
-    vm: &mut Chip8,
+    vm: &mut Vm,
     cpu_clock: u32,
     tx: Sender<Chip8UICommand>,
     rx: Receiver<Chip8VMCommand>,
@@ -181,7 +181,7 @@ pub fn exec_vm(
     let mut t = Instant::now();
     let mut last_t_cpu = Instant::now();
     let mut last_t_timers = t;
-    let timers_step = Duration::nanoseconds(10i64.pow(9) / (TIMERS_CLOCK as i64));
+    let timers_step = Duration::nanoseconds(10i64.pow(9) / (60 as i64));
     let cpu_step = Duration::nanoseconds(10i64.pow(9) / (cpu_clock as i64));
 
     // VM state
